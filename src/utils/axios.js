@@ -1,5 +1,5 @@
 // client/src/utils/axios.js
-import axios from 'axios';
+import axios from '../api/axiosInstance';
 
 const instance = axios.create();
 
