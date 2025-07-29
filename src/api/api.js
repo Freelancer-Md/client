@@ -1,8 +1,9 @@
-import axios from '../api/axiosInstance';
+// axiosInstance.js
+import axios from 'axios'; // ✅ Import directly from 'axios', not from './api'
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true, // optional, only if backend uses cookies
+  withCredentials: true,
 });
 
 instance.interceptors.request.use((config) => {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api/axiosInstance';
+import axios from '../api/api';
 import Layout from '../components/Layout';
 import Pagination from '../components/Pagination';
 import Modal from '../components/Modal';
 import { useToast } from '../components/Toast';
-import API from '../utils/api'; // Adjust path as needed
+import API from '../api/api';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('sales');

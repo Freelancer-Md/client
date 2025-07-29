@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 import Modal from '../components/Modal';
 import Pagination from '../components/Pagination';
 import { useToast } from '../components/Toast';
-import API from '../utils/api'; // Adjust path as needed
+import API from '../api/api';
 
 const TLDashboard = () => {
   const [activeTab, setActiveTab] = useState('sales');
