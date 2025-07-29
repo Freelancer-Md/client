@@ -53,8 +53,8 @@ const TLDashboard = () => {
     });
 
     const [salesRes, salespersonsRes] = await Promise.all([
-      API.get(`/api/sales?${params}`),
-      API.get('/api/salespersons')
+      API.get(`/sales?${params}`),
+      API.get('/salespersons')
     ]);
 
     setSales(salesRes.data.sales);
@@ -63,7 +63,7 @@ const TLDashboard = () => {
   };
 
   const loadSalespersons = async () => {
-    const response = await API.get('/api/salespersons');
+    const response = await API.get('/salespersons');
     setSalespersons(response.data);
   };
 
@@ -102,7 +102,7 @@ const TLDashboard = () => {
 
   const handleEditSale = async (id) => {
     try {
-      await API.put(`/api/sales/edit/${id}`);
+      await API.put(`/sales/edit/${id}`);
       showToast('Sale updated successfully', 'success');
       loadData();
     } catch (error) {
@@ -115,7 +115,7 @@ const TLDashboard = () => {
       const params = new URLSearchParams(filters);
       params.append('format', format);
 
-      const response = await API.get(`/api/reports/export?${params}`, {
+      const response = await API.get(`/reports/export?${params}`, {
         responseType: format === 'csv' ? 'blob' : 'json'
       });
 
@@ -292,7 +292,7 @@ const TLDashboard = () => {
   const handleRemoveSalesperson = async (id) => {
     if (window.confirm('Are you sure you want to remove this team member?')) {
       try {
-        await API.delete(`/api/salespersons/remove/${id}`);
+        await API.delete(`/salespersons/remove/${id}`);
         showToast('Team member removed successfully', 'success');
         loadData();
       } catch (error) {
@@ -375,21 +375,21 @@ const TLModal = ({ isOpen, onClose, type, sale, salespersons, onSuccess }) => {
     e.preventDefault();
     try {
       if (type === 'add-sale') {
-        await API.post('/api/sales/add', {
+        await API.post('/sales/add', {
           policy_number: formData.policy_number,
           vehicle_number: formData.vehicle_number,
           salesperson_id: formData.salesperson_id,
           date: formData.date
         });
       } else if (type === 'edit-sale') {
-        await API.put(`/api/sales/edit/${sale._id}`, {
+        await API.put(`/sales/edit/${sale._id}`, {
           policy_number: formData.policy_number,
           vehicle_number: formData.vehicle_number,
           salesperson_id: formData.salesperson_id,
           date: formData.date
         });
       } else if (type === 'add-salesperson') {
-        await API.post('/api/salespersons/add', {
+        await API.post('/salespersons/add', {
           name: formData.name,
           phone: formData.phone
         });

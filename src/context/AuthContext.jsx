@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password, role) => {
     try {
-      const response = await API.post('/api/auth/login', {
+      const response = await API.post('/auth/login', {
         email,
         password,
         role

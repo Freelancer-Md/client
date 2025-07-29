@@ -56,23 +56,23 @@ const SuperAdminDashboard = () => {
       ...filters
     });
 
-    const response = await API.get(`/api/sales?${params}`);
+    const response = await API.get(`/sales?${params}`);
     setSales(response.data.sales);
     setPagination(response.data.pagination);
   };
 
   const loadSalespersons = async () => {
-    const response = await API.get('/api/salespersons');
+    const response = await API.get('/salespersons');
     setSalespersons(response.data);
   };
 
   const loadAdmins = async () => {
-    const response = await API.get('/api/admins');
+    const response = await API.get('/admins');
     setAdmins(response.data);
   };
 
   const loadTeamLeads = async () => {
-    const response = await API.get('/api/salespersons/team-leads');
+    const response = await API.get('/salespersons/team-leads');
     setTeamLeads(response.data);
   };
 
@@ -101,7 +101,7 @@ const SuperAdminDashboard = () => {
   const handleDeleteSale = async (id) => {
     if (window.confirm('Are you sure you want to delete this sale?')) {
       try {
-        await API.delete(`/api/sales/delete/${id}`);
+        await API.delete(`/sales/delete/${id}`);
         showToast('Sale deleted successfully', 'success');
         loadData();
       } catch (error) {
@@ -112,7 +112,7 @@ const SuperAdminDashboard = () => {
 
   const handleApproveSale = async (id) => {
     try {
-      await API.put(`/api/sales/approve/${id}`);
+      await API.put(`/sales/approve/${id}`);
       showToast('Sale approved successfully', 'success');
       loadData();
     } catch (error) {
@@ -137,7 +137,7 @@ const SuperAdminDashboard = () => {
       const params = new URLSearchParams(filters);
       params.append('format', format);
 
-      const response = await API.get(`/api/reports/export?${params}`, {
+      const response = await API.get(`/reports/export?${params}`, {
         responseType: format === 'csv' ? 'blob' : 'json'
       });
 
@@ -345,7 +345,7 @@ const SuperAdminDashboard = () => {
   const handleDeleteSalesperson = async (id) => {
     if (window.confirm('Are you sure you want to remove this salesperson?')) {
       try {
-        await API.delete(`/api/salespersons/remove/${id}`);
+        await API.delete(`/salespersons/remove/${id}`);
         showToast('Salesperson removed successfully', 'success');
         loadData();
       } catch (error) {
@@ -413,18 +413,18 @@ const SalespersonModal = ({ isOpen, onClose, type, item, teamLeads, onSuccess })
     e.preventDefault();
     try {
       if (type === 'add-salesperson') {
-        await API.post('/api/salespersons/add', formData);
+        await API.post('/salespersons/add', formData);
       } else if (type === 'assign-tl') {
-        await API.put(`/api/salespersons/assign-to-tl/${item._id}`, { team_lead_id: formData.team_lead_id });
+        await API.put(`/salespersons/assign-to-tl/${item._id}`, { team_lead_id: formData.team_lead_id });
       } else if (type === 'add-admin') {
-        await API.post('/api/admins/add', {
+        await API.post('/admins/add', {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           password: formData.password
         });
       } else if (type === 'add-tl') {
-        await API.post('/api/team-leads/add', {
+        await API.post('/team-leads/add', {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,

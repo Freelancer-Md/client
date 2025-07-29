@@ -61,7 +61,7 @@ const AdminDashboard = () => {
       ...filters
     });
 
-    const response = await API.get(`/api/sales?${params}`);
+    const response = await API.get(`/sales?${params}`);
     setSales(response.data.sales);
     setPagination(response.data.pagination);
   };
@@ -73,7 +73,7 @@ const loadPendingSales = async () => {
     ...filters
   });
 
-  const response = await API.get(`/api/sales?${params}`);
+  const response = await API.get(`/sales?${params}`);
   const pendingSales = response.data.sales.filter(sale => sale.status !== 'approved');
 
   setSales(pendingSales);
@@ -81,12 +81,12 @@ const loadPendingSales = async () => {
 };
 
   const loadSalespersons = async () => {
-    const response = await API.get('/api/salespersons');
+    const response = await API.get('/salespersons');
     setSalespersons(response.data);
   };
 
   const loadTeamLeads = async () => {
-    const response = await API.get('/api/salespersons/team-leads');
+    const response = await API.get('/salespersons/team-leads');
     setTeamLeads(response.data);
   };
 
@@ -114,7 +114,7 @@ const loadPendingSales = async () => {
 
   const handleApproveSale = async (id) => {
     try {
-      await API.put(`/api/sales/approve/${id}`);
+      await API.put(`/sales/approve/${id}`);
       showToast('Sale approved successfully', 'success');
       loadData();
     } catch (error) {
@@ -124,7 +124,7 @@ const loadPendingSales = async () => {
 
   const handleAssignSalesperson = async (salespersonId, teamLeadId) => {
     try {
-      await API.put(`/api/salespersons/assign-to-tl/${salespersonId}`, {
+      await API.put(`/salespersons/assign-to-tl/${salespersonId}`, {
         team_lead_id: teamLeadId
       });
       showToast('Salesperson reassigned successfully', 'success');
@@ -139,7 +139,7 @@ const loadPendingSales = async () => {
       const params = new URLSearchParams(filters);
       params.append('format', format);
 
-      const response = await API.get(`/api/reports/export?${params}`, {
+      const response = await API.get(`/reports/export?${params}`, {
         responseType: format === 'csv' ? 'blob' : 'json'
       });
 
@@ -161,7 +161,7 @@ const loadPendingSales = async () => {
   const handleAddTL = async (e) => {
     e.preventDefault();
     try {
-      await API.post('/api/team-leads/add', formData);
+      await API.post('/team-leads/add', formData);
       setShowModal(false);
       showToast('Team Lead added successfully', 'success');
       loadData();
