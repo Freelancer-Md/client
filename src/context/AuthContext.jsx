@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from '../api/api';
+import API from '../api/api'; // ✅ Make sure path matches your file structure
 
 const AuthContext = createContext();
 
